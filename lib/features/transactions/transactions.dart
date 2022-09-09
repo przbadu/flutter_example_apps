@@ -1,0 +1,1 @@
+export 'domain/transaction.dart';
