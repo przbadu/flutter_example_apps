@@ -17,4 +17,5 @@ Map<String, IconData> supportedWalletIcons = {
   'lira': Icons.currency_lira,
   'franc': Icons.currency_franc,
   'redeem': Icons.redeem,
+  'restaurant': Icons.restaurant
 };

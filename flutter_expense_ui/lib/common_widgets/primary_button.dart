@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ui/constants/app_sizes.dart';
+import 'package:flutter_ui/constants/constants.dart';
 
 /// Primary button based on [ElevatedButton].
 /// Useful for CTAs in the app.

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flutter_ui/routes/app_router.dart';
-import 'package:flutter_ui/common_widgets/primary_button_widget.dart';
-import 'package:flutter_ui/constants/app_sizes.dart';
+import 'package:flutter_ui/common_widgets/primary_button.dart';
+import 'package:flutter_ui/constants/constants.dart';
 import 'package:flutter_ui/localization/string_hardcoded_x.dart';
 
 /// Placeholder widget showing a message and CTA to go back to the home screen.
