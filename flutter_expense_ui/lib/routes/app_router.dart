@@ -18,7 +18,7 @@ final goRouter = GoRouter(
     GoRoute(
       path: '/',
       name: AppRoutes.home.name,
-      builder: (context, state) => const HomeScreen(),
+      builder: (context, state) => const DashboardScreen(),
       // nested routes
       routes: [
         GoRoute(
