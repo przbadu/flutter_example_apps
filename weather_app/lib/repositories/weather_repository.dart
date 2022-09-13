@@ -5,7 +5,6 @@ import 'package:riverpod/riverpod.dart';
 
 import 'package:weather_app/constants/constants.dart';
 import 'package:weather_app/models/models.dart';
-import 'package:weather_app/models/weather.dart';
 
 class WeatherRequestFailure implements Exception {}
 
@@ -44,7 +43,7 @@ final weatherProvider = Provider<WeatherRepository>((ref) {
 });
 
 final getWeatherFutureProvider =
-    FutureProvider.family<Weather, Location>((ref, location) async {
+    FutureProvider.autoDispose.family<Weather, Location>((ref, location) async {
   final weatherRepository = ref.watch(weatherProvider);
   return weatherRepository.getWeather(
     latitude: location.latitude,
