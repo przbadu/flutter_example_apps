@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weather_app/repositories/repositories.dart';
+import 'package:weather_app/extensions/string_parameterized_x.dart';
 
 class WeatherScreen extends ConsumerStatefulWidget {
   const WeatherScreen({Key? key}) : super(key: key);
@@ -35,16 +36,20 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.redAccent.shade200,
+        elevation: 0,
         title: Row(
           children: [
             const Icon(Icons.location_on),
             const SizedBox(width: 20),
             Flexible(
               child: TextField(
+                style: const TextStyle(color: Colors.white),
                 controller: searchController,
                 decoration: const InputDecoration.collapsed(
                   // border: OutlineInputBorder(),
                   hintText: 'Enter a location name',
+                  hintStyle: TextStyle(color: Colors.white),
                 ),
                 onSubmitted: submit,
               ),
@@ -64,11 +69,20 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
           ],
         ),
       ),
-      body: Container(
+      body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Weather Info:'),
-            Text(weatherProvider.temperature.toString())
+            Image.asset(
+              "assets/${weatherProvider.weatherCodeToName().parameterized()}.png",
+            ),
+            const SizedBox(height: 20),
+            Text(weatherProvider.weatherCodeToName()),
+            const SizedBox(height: 20),
+            Text(
+              "${weatherProvider.temperature}°",
+              style: Theme.of(context).textTheme.headline1,
+            ),
           ],
         ),
       ),
