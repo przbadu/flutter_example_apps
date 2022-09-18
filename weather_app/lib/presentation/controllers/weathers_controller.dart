@@ -1,23 +1,21 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_app/models/models.dart';
-import 'package:weather_app/repositories/location_repository.dart';
 import 'package:weather_app/repositories/repositories.dart';
 
-class WeathersController extends StateNotifier<Weather> {
-  WeathersController({
-    required this.locationRepository,
-    required this.weatherRepository,
-  }) : super(Weather.empty());
+class WeathersController {
+  WeathersController();
 
-  final LocationRepository locationRepository;
-  final WeatherRepository weatherRepository;
+  final locationRepository = LocationRepository();
+  final weatherRepository = WeatherRepository();
 
-  Future<Weather> getWeather(String query) async {
+  Future<void> getWeather(String query) async {
     final locationResponse = await locationRepository.getLocation(query);
 
-    return weatherRepository.getWeather(
-      latitude: locationResponse.latitude,
-      longitude: locationResponse.longitude,
-    );
+    try {
+      await weatherRepository.getWeather(
+        latitude: locationResponse.latitude,
+        longitude: locationResponse.longitude,
+      );
+    } catch (e) {
+      print('Weather error');
+    }
   }
 }

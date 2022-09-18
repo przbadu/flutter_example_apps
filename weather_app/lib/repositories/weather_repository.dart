@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+// ignore: depend_on_referenced_packages
 import 'package:riverpod/riverpod.dart';
 
 import 'package:weather_app/constants/constants.dart';
@@ -10,16 +11,18 @@ class WeatherRequestFailure implements Exception {}
 
 class WeatherNotFoundFailure implements Exception {}
 
-class WeatherRepository {
+class WeatherRepository extends StateNotifier<Weather> {
+  WeatherRepository() : super(Weather.empty());
+
   /// Find and Returns a [Weather] `/v1/forecast?latitude={latitude}&longitude={longitude}&current_weather=true
   Future<Weather> getWeather({
     required double latitude,
     required double longitude,
   }) async {
-    final url = Uri.https(kWeatherApiBaseUrl, 'v1/forecast', {
-      'latitude': latitude,
-      'longitude': longitude,
-      'current_weather': true,
+    final url = Uri.https(kWeatherApiBaseUrl, '/v1/forecast', {
+      'latitude': latitude.toString(),
+      'longitude': longitude.toString(),
+      'current_weather': true.toString(),
     });
 
     final locationResponse = await http.get(url);
@@ -34,19 +37,11 @@ class WeatherRepository {
 
     final weatherJson = bodyJson['current_weather'] as Map<String, dynamic>;
 
-    return Weather.fromMap(weatherJson);
+    return state = Weather.fromMap(weatherJson);
   }
 }
 
-final weatherProvider = Provider<WeatherRepository>((ref) {
+final weatherRepositoryProvider =
+    StateNotifierProvider<WeatherRepository, Weather>((ref) {
   return WeatherRepository();
-});
-
-final getWeatherFutureProvider =
-    FutureProvider.autoDispose.family<Weather, Location>((ref, location) async {
-  final weatherRepository = ref.watch(weatherProvider);
-  return weatherRepository.getWeather(
-    latitude: location.latitude,
-    longitude: location.longitude,
-  );
 });

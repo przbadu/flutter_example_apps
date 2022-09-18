@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+// ignore: depend_on_referenced_packages
 import 'package:riverpod/riverpod.dart';
 import 'package:weather_app/constants/constants.dart';
 import 'package:weather_app/models/models.dart';
@@ -12,7 +13,7 @@ class LocationNotFoundFailure implements Exception {}
 class LocationRepository {
   /// Finds a [Location] `/v1/search?name={query}`
   Future<Location> getLocation(String query) async {
-    final url = Uri.https(kWeatherApiBaseUrl, 'v1/search', {'name': query});
+    final url = Uri.https(kLocationApiBaseUrl, 'v1/search', {'name': query});
     final locationResponse = await http.get(url);
 
     if (locationResponse.statusCode != 200) {
