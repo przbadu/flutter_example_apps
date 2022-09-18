@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_app/repositories/repositories.dart';
 import 'package:weather_app/extensions/string_parameterized_x.dart';
+import 'package:weather_app/presentation/controllers/weathers_controller.dart';
 
 class WeatherScreen extends ConsumerStatefulWidget {
   const WeatherScreen({Key? key}) : super(key: key);
@@ -15,23 +15,11 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final weatherProvider = ref.watch(weatherRepositoryProvider);
+    final weathersController = ref.watch(weathersControllerProvider);
 
-    void submit(String location) async {
-      final locationRepository = ref.read(locationRepositoryProvider);
-      final weatherRepository = ref.read(weatherRepositoryProvider.notifier);
-
-      try {
-        final locationResponse = await locationRepository.getLocation(location);
-
-        await weatherRepository.getWeather(
-          latitude: locationResponse.latitude,
-          longitude: locationResponse.longitude,
-        );
-        print('triggered...');
-      } catch (e) {
-        print('Error: ${e.toString()}');
-      }
+    // search location, find lat and lng, and get current weather
+    void search(String location) async {
+      await ref.read(weathersControllerProvider.notifier).getWeather(location);
     }
 
     return Scaffold(
@@ -51,7 +39,7 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
                   hintText: 'Enter a location name',
                   hintStyle: TextStyle(color: Colors.white),
                 ),
-                onSubmitted: submit,
+                onSubmitted: search,
               ),
             ),
             const SizedBox(width: 20),
@@ -63,29 +51,32 @@ class _WeatherScreenState extends ConsumerState<WeatherScreen> {
             ),
             const SizedBox(width: 10),
             IconButton(
-              onPressed: () => submit(searchController.text),
+              onPressed: () => search(searchController.text),
               icon: const Icon(Icons.search),
             ),
           ],
         ),
       ),
       body: Center(
-        child: Column(
+          child: weathersController.when(
+        data: (weather) => Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              "assets/${weatherProvider.weatherCodeToName().parameterized()}.png",
+              "assets/${weather.weatherCodeToName().parameterized()}.png",
             ),
             const SizedBox(height: 20),
-            Text(weatherProvider.weatherCodeToName()),
+            Text(weather.weatherCodeToName()),
             const SizedBox(height: 20),
             Text(
-              "${weatherProvider.temperature}°",
+              "${weather.temperature}°",
               style: Theme.of(context).textTheme.headline1,
             ),
           ],
         ),
-      ),
+        error: (e, st) => Text(e.toString()),
+        loading: () => const CircularProgressIndicator(),
+      )),
     );
   }
 }

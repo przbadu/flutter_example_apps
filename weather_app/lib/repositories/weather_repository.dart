@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 // ignore: depend_on_referenced_packages
-import 'package:riverpod/riverpod.dart';
 
 import 'package:weather_app/constants/constants.dart';
 import 'package:weather_app/models/models.dart';
@@ -11,9 +10,7 @@ class WeatherRequestFailure implements Exception {}
 
 class WeatherNotFoundFailure implements Exception {}
 
-class WeatherRepository extends StateNotifier<Weather> {
-  WeatherRepository() : super(Weather.empty());
-
+class WeatherRepository {
   /// Find and Returns a [Weather] `/v1/forecast?latitude={latitude}&longitude={longitude}&current_weather=true
   Future<Weather> getWeather({
     required double latitude,
@@ -37,11 +34,6 @@ class WeatherRepository extends StateNotifier<Weather> {
 
     final weatherJson = bodyJson['current_weather'] as Map<String, dynamic>;
 
-    return state = Weather.fromMap(weatherJson);
+    return Weather.fromMap(weatherJson);
   }
 }
-
-final weatherRepositoryProvider =
-    StateNotifierProvider<WeatherRepository, Weather>((ref) {
-  return WeatherRepository();
-});
