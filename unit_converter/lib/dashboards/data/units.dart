@@ -1,57 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:unit_converter/dashboards/dashboards.dart';
 
-class DashboardData {
-  final String label;
-  final IconData icon;
-  final Color color;
-  final int id;
-
-  DashboardData({
-    required this.label,
-    required this.icon,
-    required this.color,
-    required this.id,
-  });
-}
-
-final List<DashboardData> kDashboardData = [
-  DashboardData(
+final List<Unit> kUnits = [
+  Unit(
     label: 'Length',
     color: Colors.indigo,
     icon: Icons.straighten,
     id: 1,
   ),
-  DashboardData(
+  Unit(
     label: 'Area',
     color: Colors.green,
     icon: Icons.aspect_ratio,
     id: 2,
   ),
-  DashboardData(
+  Unit(
     label: 'Mass',
     color: Colors.redAccent,
     icon: Icons.person,
     id: 3,
   ),
-  DashboardData(
+  Unit(
     label: 'Temperature',
     color: Colors.red,
     icon: Icons.thermostat,
     id: 4,
   ),
-  DashboardData(
+  Unit(
     label: 'Speed',
     color: Colors.purple,
     icon: Icons.speed,
     id: 5,
   ),
-  DashboardData(
+  Unit(
     label: 'Date',
     color: Colors.lightGreen,
     icon: Icons.calendar_month,
     id: 6,
   ),
-  DashboardData(
+  Unit(
     label: 'Currency',
     color: Colors.orange,
     icon: Icons.currency_exchange,

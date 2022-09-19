@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:unit_converter/presentation/presentation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:unit_converter/dashboards/presentation/presentation.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,11 +16,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,
-        scaffoldBackgroundColor: const Color(0xffe0e0e0),
+        scaffoldBackgroundColor: const Color(0xfff0f0f0),
       ),
       darkTheme: ThemeData(brightness: Brightness.dark),
       themeMode: ThemeMode.light,
-      home: const HomePage(),
+      home: const DashboardPage(),
     );
   }
 }
