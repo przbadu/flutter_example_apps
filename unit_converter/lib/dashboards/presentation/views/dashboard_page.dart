@@ -17,7 +17,7 @@ class _DashboardPageState extends ConsumerState<DashboardPage> {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     /// TODO: find how to apply filter on the provider
-    final units = ref.watch(getUnitsProvider(null));
+    final units = ref.watch(dashboardRepositoryProvider);
 
     print('units $units');
 
@@ -33,7 +33,7 @@ class _DashboardPageState extends ConsumerState<DashboardPage> {
             suffixIcon: Icon(Icons.search),
           ),
           onChanged: (value) =>
-              ref.read(dashboardRepositoryProvider).getUnits(value),
+              ref.read(dashboardRepositoryProvider.notifier).getUnits(value),
         ),
       ),
       body: Padding(
