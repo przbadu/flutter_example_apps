@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todoapp/app/projects/data/projects_repository.dart';
 import 'package:todoapp/app/projects/model/project.dart';
 import 'package:todoapp/config/initializers/fake_projects.dart';
@@ -42,3 +43,22 @@ class FakeProjectsRepository implements ProjectsRepository {
     }
   }
 }
+
+final fakeProjectsRepositoryProvider = Provider<FakeProjectsRepository>((ref) {
+  return FakeProjectsRepository();
+});
+
+final watchProjectProvider =
+    StreamProvider.autoDispose.family<Project?, int>((ref, id) {
+  return ref.watch(fakeProjectsRepositoryProvider).watchProject(id);
+});
+
+final fetchProjectsListProvider =
+    FutureProvider.autoDispose<List<Project?>>((ref) {
+  return ref.watch(fakeProjectsRepositoryProvider).fetchProjectList();
+});
+
+final watchProjectsListProvider =
+    StreamProvider.autoDispose<List<Project?>>((ref) {
+  return ref.watch(fakeProjectsRepositoryProvider).watchProjectList();
+});

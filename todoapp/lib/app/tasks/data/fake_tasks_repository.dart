@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todoapp/app/tasks/data/tasks_repository.dart';
 import 'package:todoapp/app/tasks/model/task.dart';
 import 'package:todoapp/config/initializers/fake_tasks.dart';
@@ -42,3 +43,20 @@ class FakeTaskRepository implements TasksRepository {
     }
   }
 }
+
+final fakeTasksRepositoryProvider = Provider<FakeTaskRepository>((ref) {
+  return FakeTaskRepository();
+});
+
+final watchTaskProvider =
+    StreamProvider.autoDispose.family<Task?, int>((ref, id) {
+  return ref.watch(fakeTasksRepositoryProvider).watchTask(id);
+});
+
+final fetchTasksListProvider = FutureProvider.autoDispose<List<Task?>>((ref) {
+  return ref.watch(fakeTasksRepositoryProvider).fetchTaskList();
+});
+
+final watchTasksListProvider = StreamProvider.autoDispose<List<Task?>>((ref) {
+  return ref.watch(fakeTasksRepositoryProvider).watchTaskList();
+});
