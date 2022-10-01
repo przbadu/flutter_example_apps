@@ -11,13 +11,13 @@ class FakeTaskRepository implements TasksRepository {
   });
 
   @override
-  Future<List<Task?>> fetchTasks() {
+  Future<List<Task?>> fetchTaskList() {
     delay(addDelay);
     return Future.value(_tasks);
   }
 
   @override
-  Future<Task?> findTask(int id) {
+  Future<Task?> getTask(int id) {
     delay(addDelay);
     return Future.value(_findTask(_tasks, id));
   }
@@ -25,11 +25,11 @@ class FakeTaskRepository implements TasksRepository {
   @override
   Stream<Task?> watchTask(int id) {
     delay(addDelay);
-    return watchTasks().map((tasks) => _findTask(tasks, id));
+    return watchTaskList().map((tasks) => _findTask(tasks, id));
   }
 
   @override
-  Stream<List<Task>> watchTasks() async* {
+  Stream<List<Task>> watchTaskList() async* {
     delay(addDelay);
     yield _tasks;
   }

@@ -11,13 +11,13 @@ class FakeProjectsRepository implements ProjectsRepository {
   });
 
   @override
-  Future<List<Project?>> fetchProjects() {
+  Future<List<Project?>> fetchProjectList() {
     delay(addDelay);
     return Future.value(_projects);
   }
 
   @override
-  Future<Project?> findProject(int id) {
+  Future<Project?> getProject(int id) {
     delay(addDelay);
     return Future.value(_findProject(_projects, id));
   }
@@ -25,11 +25,11 @@ class FakeProjectsRepository implements ProjectsRepository {
   @override
   Stream<Project?> watchProject(int id) {
     delay(addDelay);
-    return watchProjects().map((projects) => _findProject(projects, id));
+    return watchProjectList().map((projects) => _findProject(projects, id));
   }
 
   @override
-  Stream<List<Project>> watchProjects() async* {
+  Stream<List<Project>> watchProjectList() async* {
     delay(addDelay);
     yield _projects;
   }
