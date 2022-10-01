@@ -1,5 +1,4 @@
 import 'package:go_router/go_router.dart';
-import 'package:unit_converter/currency_converter/currency_converter.dart';
 import 'package:unit_converter/dashboards/dashboards.dart';
 import 'package:unit_converter/date_converter/date_converter.dart';
 import 'package:unit_converter/router/not_found_screen.dart';
@@ -23,12 +22,19 @@ final appRouter = GoRouter(
         GoRoute(
           name: AppRouteState.dateConverter.name,
           path: 'date_converter',
-          builder: (context, state) => const DateConverter(),
+          // pageBuilder: (context, state) {
+          //   return MaterialPage(
+          //     key: state.pageKey,
+          //     fullscreenDialog: true,
+          //     child: const DateConverter(),
+          //   );
+          // },
+          builder: (context, state) => const DateConverterView(),
         ),
         GoRoute(
           name: AppRouteState.currencyConverter.name,
           path: 'currency_converter',
-          builder: (context, state) => const CurrencyConverter(),
+          builder: (context, state) => const DateConverterView(),
         )
       ],
     ),

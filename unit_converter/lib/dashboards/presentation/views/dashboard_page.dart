@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:unit_converter/dashboards/data/dashboard_repository.dart';
 
@@ -15,11 +16,7 @@ class _DashboardPageState extends ConsumerState<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-    /// TODO: find how to apply filter on the provider
     final units = ref.watch(dashboardRepositoryProvider);
-
-    print('units $units');
 
     return Scaffold(
       appBar: AppBar(
@@ -48,14 +45,17 @@ class _DashboardPageState extends ConsumerState<DashboardPage> {
           itemBuilder: (context, index) {
             final dashboardItem = units[index];
 
-            return Card(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(dashboardItem.icon, color: dashboardItem.color),
-                    Text(dashboardItem.label),
-                  ],
+            return InkWell(
+              onTap: () => context.goNamed(dashboardItem.routeName.name),
+              child: Card(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(dashboardItem.icon, color: dashboardItem.color),
+                      Text(dashboardItem.label),
+                    ],
+                  ),
                 ),
               ),
             );
