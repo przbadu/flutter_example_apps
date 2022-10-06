@@ -6,7 +6,7 @@ final kLightTheme = ThemeData(
   scaffoldBackgroundColor: const Color(0xFFF4F6FD),
   colorScheme: const ColorScheme.light().copyWith(
     primary: const Color(0xFFFF5959),
-    secondary: const Color(0xFFFF5959),
+    secondary: Colors.amberAccent,
     onSecondary: Colors.white,
   ),
   fontFamily: 'Roboto',

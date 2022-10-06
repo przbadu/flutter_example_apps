@@ -16,6 +16,7 @@ dependencies:
   equatable: ^2.0.5
   # state management, dependency injection
   flutter_riverpod: ^2.0.0
+  percent_indicator: ^4.2.2
 
 dev_dependencies:
   flutter_test:
