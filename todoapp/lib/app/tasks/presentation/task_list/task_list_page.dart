@@ -22,11 +22,20 @@ class TaskListPage extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 5.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: const [
-              SizedBox(height: 20),
-              ProjectListWidget(),
-              SizedBox(height: 20),
-              TaskListWidget(),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              Text(
+                'Projects',
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              const ProjectListWidget(),
+              const SizedBox(height: 20),
+              Text(
+                'Tasks',
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              const TaskListWidget(),
             ],
           ),
         ),
