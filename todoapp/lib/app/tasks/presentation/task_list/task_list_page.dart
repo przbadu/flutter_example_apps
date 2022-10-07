@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todoapp/app/tasks/presentation/widgets/project_list_widget.dart';
 import 'package:todoapp/app/tasks/presentation/widgets/task_list_widget.dart';
+import 'package:todoapp/extensions/extensions.dart';
 
 class TaskListPage extends ConsumerWidget {
   const TaskListPage({Key? key}) : super(key: key);
@@ -24,17 +25,24 @@ class TaskListPage extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               Text(
-                'Projects',
+                'What\'s on your mind?'.hardcoded,
                 style: Theme.of(context).textTheme.headline5,
               ),
+              const SizedBox(height: 30),
+              Text(
+                'Projects'.hardcoded.toUpperCase(),
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              const SizedBox(height: 10),
               const ProjectListWidget(),
               const SizedBox(height: 20),
               Text(
-                'Tasks',
-                style: Theme.of(context).textTheme.headline5,
+                'Tasks'.hardcoded.toUpperCase(),
+                style: Theme.of(context).textTheme.headline6,
               ),
+              const SizedBox(height: 10),
               const TaskListWidget(),
             ],
           ),

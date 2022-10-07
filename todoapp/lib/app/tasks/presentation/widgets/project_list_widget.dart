@@ -5,6 +5,7 @@ import 'package:todoapp/widgets/widgets.dart';
 
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:todoapp/app/projects/model/project.dart';
+import 'package:todoapp/extensions/extensions.dart';
 
 class ProjectListWidget extends ConsumerWidget {
   const ProjectListWidget({Key? key}) : super(key: key);
@@ -48,6 +49,7 @@ class ProjectRowWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
     final widgetWidth = screenWidth / 2 - 10;
+    final textTheme = Theme.of(context).textTheme;
 
     return SizedBox(
       width: widgetWidth,
@@ -60,7 +62,8 @@ class ProjectRowWidget extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
-                '${project.tasksCount} TASKS',
+                '${project.tasksCount} TASKS'.hardcoded,
+                style: textTheme.bodySmall,
               ),
             ),
             const SizedBox(height: 8),
@@ -68,7 +71,7 @@ class ProjectRowWidget extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
                 project.name,
-                style: Theme.of(context).textTheme.headline5,
+                style: textTheme.bodyLarge,
               ),
             ),
             const SizedBox(height: 8),

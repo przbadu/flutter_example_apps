@@ -5,13 +5,15 @@ class Task extends Equatable {
   final String title;
   final String description;
   final bool isCompleted;
-  final DateTime? dateTime;
+  final DateTime? date;
+  final String? time;
   final DateTime createdAt;
   final int projectId; // belongs to
   const Task({
     required this.id,
     required this.title,
-    this.dateTime,
+    this.date,
+    this.time,
     required this.createdAt,
     required this.projectId,
     this.description = '',
@@ -20,10 +22,10 @@ class Task extends Equatable {
 
   @override
   List<Object?> get props =>
-      [id, title, description, isCompleted, dateTime, projectId, createdAt];
+      [id, title, description, isCompleted, date, time, projectId, createdAt];
 
   @override
   String toString() {
-    return 'Task(id: $id, title: $title, description: $description, isCompleted: $isCompleted, dateTime: $dateTime, createdAt: $createdAt, projectId: $projectId)';
+    return 'Task(id: $id, title: $title, description: $description, isCompleted: $isCompleted, date: $date, time: $time, createdAt: $createdAt, projectId: $projectId)';
   }
 }
