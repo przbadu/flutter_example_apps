@@ -5,4 +5,5 @@ abstract class TasksRepository {
   Future<List<Task?>> fetchTaskList();
   Stream<List<Task>> watchTaskList();
   Stream<Task?> watchTask(int id);
+  // Future<void> toggleTask(int id);
 }

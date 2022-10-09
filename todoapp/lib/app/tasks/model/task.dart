@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 
+@immutable
 class Task extends Equatable {
   final int id;
   final String title;
@@ -27,5 +29,27 @@ class Task extends Equatable {
   @override
   String toString() {
     return 'Task(id: $id, title: $title, description: $description, isCompleted: $isCompleted, date: $date, time: $time, createdAt: $createdAt, projectId: $projectId)';
+  }
+
+  Task copyWith({
+    int? id,
+    String? title,
+    String? description,
+    bool? isCompleted,
+    DateTime? date,
+    String? time,
+    DateTime? createdAt,
+    int? projectId,
+  }) {
+    return Task(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      isCompleted: isCompleted ?? this.isCompleted,
+      date: date ?? this.date,
+      time: time ?? this.time,
+      createdAt: createdAt ?? this.createdAt,
+      projectId: projectId ?? this.projectId,
+    );
   }
 }

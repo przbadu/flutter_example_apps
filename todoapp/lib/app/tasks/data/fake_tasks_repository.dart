@@ -11,24 +11,32 @@ class FakeTaskRepository implements TasksRepository {
     this.addDelay = true,
   });
 
+  /// Return future list of [Task]
   @override
   Future<List<Task?>> fetchTaskList() {
     delay(addDelay);
     return Future.value(_tasks);
   }
 
+  /// Return future [Task] with matching [id] if exists
+  ///
+  /// otherwise it returns [nil]
   @override
   Future<Task?> getTask(int id) {
     delay(addDelay);
     return Future.value(_findTask(_tasks, id));
   }
 
+  /// Return stream of [Task] with matching [id] if exists
+  ///
+  /// otherwise it returns [nil]
   @override
   Stream<Task?> watchTask(int id) {
     delay(addDelay);
     return watchTaskList().map((tasks) => _findTask(tasks, id));
   }
 
+  /// Return stream of list of [Task]
   @override
   Stream<List<Task>> watchTaskList() async* {
     delay(addDelay);
@@ -46,17 +54,4 @@ class FakeTaskRepository implements TasksRepository {
 
 final fakeTasksRepositoryProvider = Provider<FakeTaskRepository>((ref) {
   return FakeTaskRepository();
-});
-
-final watchTaskProvider =
-    StreamProvider.autoDispose.family<Task?, int>((ref, id) {
-  return ref.watch(fakeTasksRepositoryProvider).watchTask(id);
-});
-
-final fetchTasksListProvider = FutureProvider.autoDispose<List<Task?>>((ref) {
-  return ref.watch(fakeTasksRepositoryProvider).fetchTaskList();
-});
-
-final watchTasksListProvider = StreamProvider.autoDispose<List<Task?>>((ref) {
-  return ref.watch(fakeTasksRepositoryProvider).watchTaskList();
 });
