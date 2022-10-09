@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todoapp/app/app.dart';
+import 'package:todoapp/app/tasks/presentation/task_list_calendar_page.dart';
 
 enum AppRoute {
   home,
   tasks,
-  tasksByProject,
+  upcomingTasks,
   labels,
   projects,
   setting,
@@ -20,7 +21,7 @@ final appRoutes = GoRouter(
     GoRoute(
       path: '/',
       name: AppRoute.home.name,
-      builder: (context, state) => const TaskListPage(),
+      builder: (context, state) => const UpcomingTaskListPage(),
       routes: [
         GoRoute(
           name: AppRoute.tasks.name,
@@ -29,9 +30,9 @@ final appRoutes = GoRouter(
           // if you need /tasks/:id, nest the route here
         ),
         GoRoute(
-          name: AppRoute.tasksByProject.name,
-          path: 'tasks_by_project/:project_id',
-          builder: (context, state) => const TasksByProjectPage(),
+          name: AppRoute.upcomingTasks.name,
+          path: 'tasks/upcoming',
+          builder: (context, state) => const UpcomingTaskListPage(),
         ),
         GoRoute(
           name: AppRoute.setting.name,

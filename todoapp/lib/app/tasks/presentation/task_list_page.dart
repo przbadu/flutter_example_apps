@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:todoapp/app/tasks/presentation/project_list_widget.dart';
-import 'package:todoapp/app/tasks/presentation/task_list_widget.dart';
+import 'package:todoapp/app/tasks/presentation/widgets/project_list_widget.dart';
+import 'package:todoapp/app/tasks/presentation/widgets/task_list_widget.dart';
 import 'package:todoapp/app/tasks/presentation/tasks_controller.dart';
+import 'package:todoapp/config/config.dart';
 import 'package:todoapp/extensions/extensions.dart';
 import 'package:todoapp/widgets/async_value_widget.dart';
+import 'package:go_router/go_router.dart';
 
 class TaskListPage extends ConsumerWidget {
   const TaskListPage({Key? key}) : super(key: key);
@@ -19,7 +21,9 @@ class TaskListPage extends ConsumerWidget {
         title: const Text('Home'),
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+          IconButton(
+              onPressed: () => context.pushNamed(AppRoute.upcomingTasks.name),
+              icon: const Icon(Icons.calendar_month)),
         ],
       ),
       body: SingleChildScrollView(
@@ -51,9 +55,11 @@ class TaskListPage extends ConsumerWidget {
               AsyncValueWidget(
                 value: tasksController,
                 data: (tasks) {
-                  return TaskListWidget(tasks: tasks);
+                  return Flexible(
+                    child: TaskListWidget(tasks: tasks),
+                  );
                 },
-              )
+              ),
             ],
           ),
         ),
