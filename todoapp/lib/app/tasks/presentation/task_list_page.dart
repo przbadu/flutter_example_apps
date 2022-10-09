@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todoapp/app/tasks/data/fake_tasks_repository.dart';
 import 'package:todoapp/app/tasks/presentation/widgets/project_list_widget.dart';
 import 'package:todoapp/app/tasks/presentation/widgets/task_list_widget.dart';
-import 'package:todoapp/app/tasks/presentation/tasks_controller.dart';
 import 'package:todoapp/config/config.dart';
 import 'package:todoapp/extensions/extensions.dart';
 import 'package:todoapp/widgets/async_value_widget.dart';
@@ -13,7 +13,7 @@ class TaskListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tasksController = ref.watch(tasksControllerProvider);
+    final tasksRepository = ref.watch(taskListFutureProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -53,7 +53,7 @@ class TaskListPage extends ConsumerWidget {
               const SizedBox(height: 10),
               // const TaskListWidget(),
               AsyncValueWidget(
-                value: tasksController,
+                value: tasksRepository,
                 data: (tasks) {
                   return Flexible(
                     child: TaskListWidget(tasks: tasks),

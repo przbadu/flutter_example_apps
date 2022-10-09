@@ -63,8 +63,8 @@ class TaskListWidget extends ConsumerWidget {
             value: task.isCompleted,
             onChanged: (isDone) {
               ref
-                  .read(tasksControllerProvider.notifier)
-                  .toggleTaskCompleted(task.id);
+                  .read(toggleTaskControllerProvider.notifier)
+                  .toggleTaskCompleted(task);
             },
           ),
         );

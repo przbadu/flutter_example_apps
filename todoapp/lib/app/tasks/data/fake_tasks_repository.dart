@@ -50,8 +50,36 @@ class FakeTaskRepository implements TasksRepository {
       return null;
     }
   }
+
+  List<Task> searchTask(List<Task> tasks, String keyword) {
+    return tasks.where((t) {
+      return t.description
+          .toString()
+          .toLowerCase()
+          .contains(keyword.toLowerCase());
+    }).toList();
+  }
+
+  @override
+  Future<List<Task?>> toggleTaskCompleted(Task task) async {
+    List<Task?> tasks = [];
+    for (final t in await fetchTaskList()) {
+      if (t!.id == task.id) {
+        t.copyWith(isCompleted: !t.isCompleted);
+        tasks.add(t);
+      } else {
+        tasks.add(t);
+      }
+    }
+    return tasks;
+  }
 }
 
 final fakeTasksRepositoryProvider = Provider<FakeTaskRepository>((ref) {
   return FakeTaskRepository();
+});
+
+final taskListFutureProvider =
+    FutureProvider.autoDispose<List<Task?>>((ref) async {
+  return ref.watch(fakeTasksRepositoryProvider).fetchTaskList();
 });

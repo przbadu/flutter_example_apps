@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:todoapp/app/tasks/presentation/tasks_controller.dart';
+import 'package:todoapp/app/tasks/data/fake_tasks_repository.dart';
 import 'package:todoapp/app/tasks/presentation/widgets/task_list_widget.dart';
 import 'package:todoapp/config/config.dart';
 import 'package:todoapp/widgets/async_value_widget.dart';
@@ -21,7 +21,7 @@ class _UpcomingTaskListPageState extends ConsumerState<UpcomingTaskListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final tasksController = ref.watch(tasksControllerProvider);
+    final tasksController = ref.watch(taskListFutureProvider);
 
     return Scaffold(
       appBar: AppBar(
